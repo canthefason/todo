@@ -1,0 +1,17 @@
+language: go
+go: 1.6
+sudo: false
+
+services:
+  - mongodb
+
+install: true
+
+before_script:
+  - go vet $(go list ./... | grep -v /vendor/)
+
+script:
+  - go test $(go list ./... | grep -v /vendor/)
+
+after_success:
+  - ./scripts/sandbox.sh
