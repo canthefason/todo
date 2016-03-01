@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -e
-kubeargs="--namespace=$KUBE_ENV --kubeconfig=$KUBE_CONFIG"
+kubeargs="--namespace=$KUBE_ENV"
 
-alias kubectl="sudo docker run --rm wernight/kubectl kubectl"
+shopt -s expand_aliases
+alias kubectl="sudo docker run --rm -v /home/core/.kube:/root/.kube wernight/kubectl kubectl"
 
 set +e
 rcExist=$(kubectl get -o template rc $GO_PIPELINE_NAME --template={{.kind}} $kubeargs)
