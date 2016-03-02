@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: todo-service
-          image: canthefason/todo-service:${GO_PIPELINE_LABEL}
+          image: canthefason/todo-service:${BUILD_TAG}
           readinessProbe:
             httpGet:
               path: /ping

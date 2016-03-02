@@ -7,9 +7,8 @@ alias kubectl="sudo docker run --rm -v /home/core/.kube:/root/.kube -v /home/cor
 
 rcExist=$(kubectl get -o template rc $GO_PIPELINE_NAME --template={{.kind}} $kubeargs) || true
 if [ "$rcExist" != "ReplicationController" ]; then
-  envsubst < scripts/rc.yml > kubetemp.yml
-  cat kubetemp.yaml
-  kubectl create -f /root/todo-service/kubetemp.yml $kubeargs
+  sed -i -e "s/\${BUILD_TAG}/$GO_PIPELINE_LABEL/g" scripts/rc.yml
+  kubectl create -f /root/todo-service/scripts/rc.yml $kubeargs
 else
   kubectl rolling-update $GO_PIPELINE_NAME --image=canthefason/$GO_PIPELINE_NAME:$GO_PIPELINE_LABEL --update-period=20s $kubeargs
 fi
