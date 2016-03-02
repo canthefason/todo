@@ -12,6 +12,7 @@ func MustInitRouter() rest.App {
 		rest.Post("/", UpdateHandler),
 		rest.Get("/", GetHandler),
 		rest.Delete("/#id", DeleteHandler),
+		rest.Get("/ping", PingHandler),
 	)
 	if err != nil {
 		panic(err)
@@ -69,4 +70,9 @@ func DeleteHandler(w rest.ResponseWriter, r *rest.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
+}
+
+func PingHandler(w rest.ResponseWriter, r *rest.Request) {
+	w.WriteHeader(http.StatusOK)
+	w.WriteJson(map[string]string{"pong": "me"})
 }

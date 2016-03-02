@@ -142,3 +142,12 @@ func TestDeleteHandler(t *testing.T) {
 	recorded.CodeIs(http.StatusOK)
 	recorded.ContentTypeIsJson()
 }
+
+func TestPongHandler(t *testing.T) {
+	successApi := prepareApi([]Todo{}, nil)
+	recorded := test.RunRequest(t, successApi.MakeHandler(),
+		test.MakeSimpleRequest("GET", "http://1.2.3.4/ping", nil))
+
+	recorded.CodeIs(http.StatusOK)
+	recorded.ContentTypeIsJson()
+}
