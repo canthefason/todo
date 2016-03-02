@@ -15,7 +15,7 @@ spec:
       containers:
         - name: todo-service
           image: canthefason/todo-service:${TAG}
-          livenessProbe:
+          readinessProbe:
             httpGet:
               path: /ping
               port: 8000
