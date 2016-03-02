@@ -15,12 +15,12 @@ spec:
       containers:
         - name: todo-service
           image: canthefason/todo-service:${TAG}
-          #livenessProbe:
-            #httpGet:
-              #path: /ping
-              #port: ${SERVICE_PORT}
-            #initialDelaySeconds: 15
-            #timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 8000
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
           ports:
             - containerPort: 8000
           imagePullPolicy: Always
